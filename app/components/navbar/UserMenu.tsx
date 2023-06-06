@@ -4,10 +4,18 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { User } from '@prisma/client';
+import { signOut } from 'next-auth/react'; 
+
+interface UserMenuProps {
+  currentUser?: User | null;
+}
 
 
-const UserMenu = () => {
+const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = useCallback(()=>{
         setIsOpen((value) => !value);
@@ -28,11 +36,25 @@ const UserMenu = () => {
         {
             isOpen && (
                 <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
-                    <div className='flex flex-col cursor-pointer'>
-                        <>
-                            <MenuItem onClick={()=>{}} label='Login'/>
+                    <div className='flex flex-col'>
+                        {
+                            currentUser ? 
+                             <>
+                            <MenuItem onClick={loginModal.onOpen} label='My Trips'/>
+                            <MenuItem onClick={registerModal.onOpen} label='My Favorites'/>
+                            <MenuItem onClick={registerModal.onOpen} label='My Reservations'/>
+                            <MenuItem onClick={registerModal.onOpen} label='My Properties'/>
+                            <MenuItem onClick={registerModal.onOpen} label='Airbnb My Home'/>
+                            <hr />
+                            <MenuItem onClick={signOut} label='Logout'/>
+                             </>
+                            :
+                            <>
+                            <MenuItem onClick={loginModal.onOpen} label='Login'/>
                             <MenuItem onClick={registerModal.onOpen} label='Sign Up'/>
-                        </>
+                             </>
+                        }
+                        
                     </div>
                 </div>
             )
