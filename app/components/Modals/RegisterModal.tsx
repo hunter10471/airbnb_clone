@@ -5,16 +5,18 @@ import axios from 'axios';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../Inputs/Input';
 import { toast } from 'react-hot-toast';
 import Button from '../Button';
 import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
+    const loginModal = useLoginModal();
     const [isLoading, setIsLoading] = useState(false);
     const { register, handleSubmit, formState:{
         errors
@@ -40,6 +42,11 @@ const RegisterModal = () => {
         })
     }
 
+    const toggle = useCallback(()=>{
+        registerModal.onClose();
+        loginModal.onOpen();
+    },[loginModal, registerModal])
+
     const bodyContent = (
         <div className='flex flex-col gap-4'>
             <Heading title='Welcome To Airbnb' subtitle='Create An Account'/>
@@ -59,7 +66,7 @@ const RegisterModal = () => {
                     <div>
                     Already have an account ?
                     </div>
-                    <div onClick={registerModal.onClose} className='text-neutral-800 font-semibold cursor-pointer hover:underline'>
+                    <div onClick={toggle} className='text-neutral-800 font-semibold cursor-pointer hover:underline'>
                     Login
                     </div>
                 </div>
