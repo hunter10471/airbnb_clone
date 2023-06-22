@@ -5,6 +5,8 @@ import { IconType } from 'react-icons/lib';
 import Avatar from '../Avatar';
 import ListingCategory from './ListingCategory';
 import dynamic from 'next/dynamic';
+import { BsFillPeopleFill } from 'react-icons/bs';
+import { MdBathroom, MdMeetingRoom } from 'react-icons/md';
 
 const Map = dynamic(() => import('../Map'), { ssr: false });
 
@@ -42,10 +44,22 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
                     <div>Hosted by {user?.name}</div>
                     <Avatar src={user?.image} />
                 </div>
-                <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
-                    <div>{guestCount} guests</div>
-                    <div>{roomCount} rooms</div>
-                    <div>{bathroomCount} bathrooms</div>
+                <div className="flex flex-row items-center gap-6 font-light text-neutral-500">
+                    <div className="flex items-center gap-1">
+                        <BsFillPeopleFill
+                            className="text-neutral-700"
+                            size={25}
+                        />
+                        <span> {guestCount} guests</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <MdMeetingRoom className="text-neutral-700" size={25} />
+                        <span> {roomCount} rooms</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <MdBathroom className="text-neutral-700" size={25} />
+                        <span> {bathroomCount} bathrooms </span>
+                    </div>
                 </div>
             </div>
             <hr />
