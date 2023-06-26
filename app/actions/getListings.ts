@@ -68,7 +68,7 @@ export default async function getListings(params: IListingParams) {
             where: query,
             orderBy: { createdAt: 'desc' },
         });
-        const safeListings = listings.map((listing) => {
+        const safeListings: any = listings.map((listing) => {
             return {
                 ...listing,
                 createdAt: listing.createdAt.toISOString(),
