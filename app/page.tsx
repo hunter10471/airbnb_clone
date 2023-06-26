@@ -1,4 +1,4 @@
-import { IListingParams, getListings } from './actions/getListings';
+import getListings, { IListingParams } from './actions/getListings';
 import ClientOnly from './components/ClientOnly';
 import Container from './components/Container';
 import EmptyState from './components/EmptyState';
