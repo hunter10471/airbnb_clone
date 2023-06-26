@@ -11,6 +11,8 @@ import { Nunito } from 'next/font/google';
 
 const font = Nunito({ subsets: ['latin'] });
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
     title: 'Airbnb',
     description: 'Airbnb Clone By Rafay',
